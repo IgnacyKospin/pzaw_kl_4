@@ -55,7 +55,7 @@ function AlbumEntry(props: PropsAlbum){
       <h3>Autor(zy): {props.author_name}</h3>
       <p>Gatunek: {props.genre}</p>
       <p>Wydane w {props.release_year}</p>
-      <p>Utwory:</p>
+      <h3>Utwory:</h3>
       <ul>
         {songs}
       </ul>
