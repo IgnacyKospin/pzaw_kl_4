@@ -42,7 +42,7 @@ interface PropsAlbum{
   songs:{song_name: string, song_length_seconds: number }[]
 }
 function AlbumEntry(props: PropsAlbum){
-  const test = props.songs.map((element) => (
+  const songs = props.songs.map((element) => (
     <li key={element.song_name}>
       {element.song_name} -- {element.song_length_seconds}
     </li>
@@ -56,7 +56,7 @@ function AlbumEntry(props: PropsAlbum){
       <p>Wydane w {props.release_year}</p>
       <p>Utwory:</p>
       <ul>
-        {test}
+        {songs}
       </ul>
     </div>
   );

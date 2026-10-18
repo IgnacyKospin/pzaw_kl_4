@@ -112,18 +112,19 @@ code {
 .superContainer{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  
 }
 .entryContainer {
   border: 1px solid black;
-  width: fit-content;
-  padding: 5%;
+  padding: 16px;
 }
 .contentContainer{
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(33%, 100%), 1fr));
+  box-sizing: border-box;
+  align-items: stretch;
 }
 .contentContainer img {
-  height: 80%;
+  height: 60%;
+  object-fit: contain;
   width: auto;
 }
