@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 
 import './App.css'
 
@@ -39,7 +39,7 @@ interface PropsAlbum{
   author_name: string;
   genre: string;
   release_year: number;
-  songs:[{song_name: string, song_length_seconds: number }]
+  songs:{song_name: string, song_length_seconds: number }[]
 }
 function AlbumEntry(props: PropsAlbum){
   const test = props.songs.map((element) => (
