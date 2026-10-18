@@ -1,6 +1,5 @@
 
 
-import './App.css'
 
 
 interface PropsMovie {
