@@ -1,26 +1,56 @@
 
 
 
-
+/**
+ * Props dla filmu.
+ */
 interface PropsMovie {
+  /**
+   * Źródło okładki, linkuj albo drogę do pliku lokalnego albo zdjęcia online
+   */
+  cover_source: string;
+  /**
+   * Nazwa filmu
+   */
   name: string;
-  img_source: string;
+  /**
+   * Rok wydania
+   */
   release_year: number;
 }
 function Movie(props: PropsMovie) {
   return (
     <div className="entryContainer">
-      <img src={props.img_source}></img>
+      <img src={props.cover_source}></img>
       <h2>{props.name}</h2>
       <p>Wydane w {props.release_year}</p>
     </div>
   );
 }
+/**
+ * Props dla książek
+ */
 interface PropsBook {
+  /**
+   * Źródło okładki, linkuj albo drogę do pliku lokalnego albo zdjęcia online
+   */
   cover_source: string;
+  /**
+   * Tytuł
+   */
   name: string;
+  /**
+   * Jakkolwiek nazywa się autor
+   */
   author_name: string;
+
+  /**
+   * Rok wydania
+   */
   release_year: number;
+  /**
+   * Ileż ma stron
+   */
   page_amount: number;
 }
 function BookEntry(props: PropsBook){
@@ -34,20 +64,61 @@ function BookEntry(props: PropsBook){
     </div>
   );
 }
+/**
+ * Propsy dla indywidualnych piosenek, do użytku w elemencie Album
+ */
+interface PropsSong{
+  /**
+   * Nazwa piosenki
+   */
+  song_name: string;
+  /**
+   * Długość w sekundach
+   */
+  song_length: number;
+}
+function SongEntry(props: PropsSong){
+  return (
+    <li><span>{props.song_name}</span> -- <span>{props.song_length}</span></li>
+  );
+}
+/**
+ * Props dla Albumu.
+ */
 interface PropsAlbum{
+  /**
+   * Źródło okładki, linkuj albo drogę do pliku lokalnego albo zdjęcia online
+   */
   cover_source: string;
+
+  /**
+   * nazwa albumu
+   */
   album_name: string;
+
+  /**
+   * nazwa autora
+   */
   author_name: string;
+
+  /**
+   * gatunek
+   */
   genre: string;
+
+  /**
+   * data wydania (rok)
+   */
   release_year: number;
-  songs:{song_name: string, song_length_seconds: number }[]
+
+  /**
+   * array piosenek zawartych,
+   * zobacz {@link PropsSong}
+   */
+  songs:PropsSong[]
 }
 function AlbumEntry(props: PropsAlbum){
-  const songs = props.songs.map((element) => (
-    <li>
-      {element.song_name} -- {element.song_length_seconds}
-    </li>
-  ));
+
   return (
     <div className="entryContainer">
       <img src={props.cover_source}></img>
@@ -57,7 +128,11 @@ function AlbumEntry(props: PropsAlbum){
       <p>Wydane w {props.release_year}</p>
       <h3>Utwory:</h3>
       <ul>
-        {songs}
+        {
+        props.songs.map((element) => (
+          <SongEntry song_name = {element.song_name} song_length={element.song_length} />
+        ))
+        }
       </ul>
     </div>
   );
@@ -67,9 +142,9 @@ function App(){
     <div className='superContainer'>
       <h1>Filmy</h1>
       <div className='contentContainer'>
-        <Movie name="Morbius" img_source="https://upload.wikimedia.org/wikipedia/en/2/2f/Morbius_%28film%29_poster.jpg" release_year={Number("2022")} />
-        <Movie name="Sharknado" img_source="https://upload.wikimedia.org/wikipedia/en/9/93/Sharknado_poster.jpg" release_year={Number("2013")} />
-        <Movie name="Lavalantula" img_source="https://upload.wikimedia.org/wikipedia/en/d/d6/Lavalantula.jpg" release_year={Number("2015")} />
+        <Movie name="Morbius" cover_source="https://upload.wikimedia.org/wikipedia/en/2/2f/Morbius_%28film%29_poster.jpg" release_year={Number("2022")} />
+        <Movie name="Sharknado" cover_source="https://upload.wikimedia.org/wikipedia/en/9/93/Sharknado_poster.jpg" release_year={Number("2013")} />
+        <Movie name="Lavalantula" cover_source="https://upload.wikimedia.org/wikipedia/en/d/d6/Lavalantula.jpg" release_year={Number("2015")} />
       </div>
       <h1>Książki</h1>
       <div className='contentContainer'>
@@ -82,17 +157,17 @@ function App(){
         <AlbumEntry album_name='The Chocolate Wheelchair Album' cover_source="src\assets\content-source\venetian_snares_chocolate_wheelchair.png"  author_name='Venetian Snares' genre='Breakcore/IDM' release_year={Number("2003")} 
         songs={
           [
-            {song_name:"Marty's Tardis", song_length_seconds:557}, 
-            {song_name:"Abomination Street", song_length_seconds:262},
-            {song_name:"Epidermis", song_length_seconds: 282}
+            {song_name:"Marty's Tardis", song_length:557}, 
+            {song_name:"Abomination Street", song_length:262},
+            {song_name:"Epidermis", song_length: 282}
           ]
         } />
         <AlbumEntry album_name='Kryzys' cover_source="src\assets\content-source\hanba_kryzys.png"  author_name='Hańba!' genre='Folk miejski/punk rock' release_year={Number("2023")} 
         songs={
           [
-            {song_name:"Zagłębie Dąbrowskie", song_length_seconds:175}, 
-            {song_name:"Czerwone i Czarne", song_length_seconds:208},
-            {song_name:"Przemsza", song_length_seconds: 155}
+            {song_name:"Zagłębie Dąbrowskie", song_length:175}, 
+            {song_name:"Czerwone i Czarne", song_length:208},
+            {song_name:"Przemsza", song_length: 155}
           ]
         } />
        </div>
