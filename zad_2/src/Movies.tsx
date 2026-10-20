@@ -34,6 +34,11 @@ interface PropsMovies{
 }
 export default function Movies(props: PropsMovies){
     props.ListOfMovies.sort((a, b) => (a.rating < b.rating ? 1 : b.rating < a.rating ? -1 : 0));
+
+    /**
+     * '[kolejne listy] wyświetlającą tylko filmy wydane po 2010 roku' więc uznaję że w poprzedniej liscie trzeba wszystko
+     */
+    const moviesPost2010 = props.ListOfMovies.filter((movie) => movie.release_year > 2010);
     return (
     <div>
         <h2>Filmy</h2>
