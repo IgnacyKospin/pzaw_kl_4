@@ -64,7 +64,7 @@ function AlbumEntry(props: PropsAlbum){
       <ul>
         {
         props.songs.map((element) => (
-          <SongEntry song_name = {element.song_name} song_length={element.song_length} />
+          <SongEntry {...element} />
         ))
         }
       </ul>
@@ -79,7 +79,7 @@ export default function Albums(props: PropsAlbums){
     return (
         <div className="contentContainer">
             {props.listOfAlbums.map((element) => (
-                <AlbumEntry cover_source={element.cover_source} album_name={element.album_name} author_name={element.author_name} genre={element.genre} release_year={element.release_year} songs={element.songs} />
+                <AlbumEntry {...element} />
             ))}
         </div>
 

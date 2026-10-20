@@ -44,7 +44,7 @@ export default function Movies(props: PropsMovies){
         <h2>Filmy</h2>
         <div className='contentContainer'>
         {props.ListOfMovies.map((element) => (
-            <Movie cover_source={element.cover_source} name={element.name} release_year={element.release_year} rating={element.rating}/>
+            <Movie {...element}/>
         ))}
         </div>
     </div>

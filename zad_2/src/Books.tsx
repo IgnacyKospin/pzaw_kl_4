@@ -42,7 +42,7 @@ export default function Books(props: PropsBooks){
     return (
         <div className="contentContainer">
             {props.listOfBooks.map((element) => (
-                <BookEntry cover_source={element.cover_source} name={element.name} author_name={element.author_name} release_year={element.release_year} page_amount={element.page_amount}/>
+                <BookEntry {...element}/>
             ))}
         </div>
     )
