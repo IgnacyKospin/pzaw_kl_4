@@ -7,8 +7,15 @@ import Albums, { type PropsAlbum} from './Albums';
 var moviesList: PropsMovie[] = [
   {
     cover_source:"https://upload.wikimedia.org/wikipedia/en/2/2f/Morbius_%28film%29_poster.jpg",
-    name:"Morbius",
-    release_year:2022
+    name:"Morbius (worse)",
+    release_year:2022,
+    rating:5
+  },
+  {
+    cover_source:"https://upload.wikimedia.org/wikipedia/en/2/2f/Morbius_%28film%29_poster.jpg",
+    name:"Morbius (better)",
+    release_year:2022,
+    rating: 10
   }
 ];
 var booksList: PropsBook[] = [

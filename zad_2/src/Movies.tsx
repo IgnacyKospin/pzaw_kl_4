@@ -14,6 +14,7 @@ export interface PropsMovie {
    * Rok wydania
    */
   release_year: number;
+  rating: 1|2|3|4|5|6|7|8|9|10; //very beautiful
 }
 function Movie(props: PropsMovie) {
   return (
@@ -32,12 +33,13 @@ interface PropsMovies{
     ListOfMovies: PropsMovie[];
 }
 export default function Movies(props: PropsMovies){
+    props.ListOfMovies.sort((a, b) => (a.rating < b.rating ? 1 : b.rating < a.rating ? -1 : 0));
     return (
     <div>
         <h2>Filmy</h2>
         <div className='contentContainer'>
         {props.ListOfMovies.map((element) => (
-            <Movie cover_source={element.cover_source} name={element.name} release_year={element.release_year} />
+            <Movie cover_source={element.cover_source} name={element.name} release_year={element.release_year} rating={element.rating}/>
         ))}
         </div>
     </div>
