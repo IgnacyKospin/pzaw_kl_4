@@ -1,6 +1,6 @@
 
 
-import Movies from './Movies';
+import Movies, { type PropsMovie } from './Movies';
 
 /**
  * Props dla książek
@@ -112,15 +112,18 @@ function AlbumEntry(props: PropsAlbum){
     </div>
   );
 }
+
+var moviesList: PropsMovie[] = [
+  {
+    cover_source:"https://upload.wikimedia.org/wikipedia/en/2/2f/Morbius_%28film%29_poster.jpg",
+    name:"Morbius",
+    release_year:2022
+  }
+];
 function App(){
   return (
     <div className='superContainer'>
-      <h1>Filmy</h1>
-      <div className='contentContainer'>
-        <Movie name="Morbius" cover_source="https://upload.wikimedia.org/wikipedia/en/2/2f/Morbius_%28film%29_poster.jpg" release_year={Number("2022")} />
-        <Movie name="Sharknado" cover_source="https://upload.wikimedia.org/wikipedia/en/9/93/Sharknado_poster.jpg" release_year={Number("2013")} />
-        <Movie name="Lavalantula" cover_source="https://upload.wikimedia.org/wikipedia/en/d/d6/Lavalantula.jpg" release_year={Number("2015")} />
-      </div>
+      <Movies ListOfMovies={moviesList}/>
       <h1>Książki</h1>
       <div className='contentContainer'>
         <BookEntry name="Czwarty Jeździec Apokalipsy" author_name='V. Ropshin (Borys Savinkov)' cover_source="src\assets\content-source\pale_horse_savinkov.png" release_year={Number("1909")} page_amount={Number("199")}/>

@@ -25,13 +25,21 @@ function Movie(props: PropsMovie) {
   );
 }
 
-export default function Movies({children}){
+interface PropsMovies{
+    /**
+     * LISTA FILMÓW ZOBACZ {@link PropsMovie}
+     */
+    ListOfMovies: PropsMovie[];
+}
+export default function Movies(props: PropsMovies){
     return (
     <div>
         <h2>Filmy</h2>
-
+        <div className='contentContainer'>
+        {props.ListOfMovies.map((element) => (
+            <Movie cover_source={element.cover_source} name={element.name} release_year={element.release_year} />
+        ))}
+        </div>
     </div>
-
-
     )
 }
