@@ -34,6 +34,8 @@ var albumsList: PropsAlbum[] = [
     ]
   }
 ];
+
+
 function App(){
   return (
     <div className='superContainer'>
