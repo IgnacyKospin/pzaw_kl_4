@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+
 /**
  * Propsy dla indywidualnych piosenek, do użytku w elemencie Album
  */
@@ -13,7 +16,7 @@ interface PropsSong{
 }
 function SongEntry(props: PropsSong){
   return (
-    <li><span>{props.song_name}</span> -- <span>{props.song_length}</span></li>
+    <tr><td>{props.song_name}</td><td className="text-end">{props.song_length}</td></tr>
   );
 }
 /**
@@ -54,34 +57,58 @@ export interface PropsAlbum{
 function AlbumEntry(props: PropsAlbum){
 
   return (
-    <div className="entryContainer">
-      <img src={props.cover_source}></img>
-      <h2>{props.album_name}</h2>
-      <h3>Autor(zy): {props.author_name}</h3>
-      <p>Gatunek: {props.genre}</p>
-      <p>Wydane w {props.release_year}</p>
-      <h3>Utwory:</h3>
-      <ul>
-        {
-        props.songs.map((element) => (
-          <SongEntry {...element} />
-        ))
+    <div className="card">
+      <img className="card-img-top" src={props.cover_source}></img>
+      <h2 className="card-title">{props.album_name}</h2>
+      <div className="card-body">
+        <h3>Autor(zy): {props.author_name}</h3>
+        <p>Gatunek: {props.genre}</p>
+        <p>Wydane w {props.release_year}</p>
+        <h3>Utwory:</h3>
+        { props.songs.length > 0 ?
+        <table className="table table-striped table-hover">
+          <thead><th>Nazwa piosenki</th><th>Czas trwania (w sekundach)</th></thead>
+          <tbody>
+          {
+          props.songs.map((element) => (
+            <SongEntry {...element} />
+          ))
+          }
+          </tbody>
+        </table>
+        : <p className="alert alert-info">Brak utworów.</p>
         }
-      </ul>
+      </div>
     </div>
   );
 }
 
 interface PropsAlbums{
     listOfAlbums: PropsAlbum[];
+    /**
+     * ile top [x] albumów według piosenek powinno pokazać? brak oznacza brak filtrowania.
+     */
+    showHowManyAlbumsByMostSongs?: number;
 }
 export default function Albums(props: PropsAlbums){
+  const [isOpen, setIsOpen] = useState(true);
+  var albums = [...props.listOfAlbums].sort((a,b) => a.album_name.localeCompare(b.album_name));
+  if(props.showHowManyAlbumsByMostSongs){
+    albums = albums.sort((a, b) => (a.songs.length < b.songs.length ? 1 : b.songs.length < a.songs.length ? -1 : 0));
+    albums = albums.slice(0, props.showHowManyAlbumsByMostSongs);
+  }
     return (
-        <div className="contentContainer">
-            {props.listOfAlbums.map((element) => (
+      <div className="container">
+        <h2>{props.showHowManyAlbumsByMostSongs && `Top ${props.showHowManyAlbumsByMostSongs} według liczby piosenek`} Albumy <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
+        {isOpen && 
+        <div className="row g-4">
+            {albums.map((element) => (
+              <div className="col-12 col-sm-12 col-md-6 col-lg-4">
                 <AlbumEntry {...element} />
+              </div>
             ))}
         </div>
-
+        }
+      </div>
     )
 }

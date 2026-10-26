@@ -95,25 +95,11 @@ p {
   margin: 0;
 }
 
-.superContainer{
-  display: flex;
-  flex-direction: column;
+.special_label {
+  background-color: beige;
+  width: 100%;
+  font-weight: bolder;
 }
-.entryContainer {
-  border: 1px solid black;
-  padding: 16px;
-}
-.entryContainer ul {
-  list-style-position: inside;
-}
-.contentContainer{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(33%, 100%), 1fr));
-  box-sizing: border-box;
-  align-items: stretch;
-}
-.contentContainer img {
-  height: 60%;
-  object-fit: contain;
-  width: auto;
+.visibility_toggler{
+  cursor: grab; /*it looks close enough to the clickable cursor so im going with this*/
 }
