@@ -61,6 +61,7 @@ function AlbumEntry(props: PropsAlbum){
       <p>Gatunek: {props.genre}</p>
       <p>Wydane w {props.release_year}</p>
       <h3>Utwory:</h3>
+      { props.songs.length > 0 ?
       <ul>
         {
         props.songs.map((element) => (
@@ -68,6 +69,8 @@ function AlbumEntry(props: PropsAlbum){
         ))
         }
       </ul>
+      : <p>Brak utworów.</p>
+      }
     </div>
   );
 }

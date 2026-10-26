@@ -117,3 +117,8 @@ p {
   object-fit: contain;
   width: auto;
 }
+.special_label {
+  background-color: beige;
+  width: 100%;
+  font-weight: bolder;
+}

@@ -27,6 +27,7 @@ export interface PropsBook {
 function BookEntry(props: PropsBook){
   return (
     <div className="entryContainer">
+      {props.release_year <= 2000 && <p className="special_label">Klasyk</p>}
       <img src={props.cover_source}></img>
       <h2>{props.name}</h2>
       <h3>Autorstwa {props.author_name}</h3>

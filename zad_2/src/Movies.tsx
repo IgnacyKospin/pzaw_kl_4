@@ -19,6 +19,7 @@ export interface PropsMovie {
 function Movie(props: PropsMovie) {
   return (
     <div className="entryContainer">
+      {props.rating >= 9 && <p className="special_label">Polecane</p>}
       <img src={props.cover_source}></img>
       <h2>{props.name}</h2>
       <p>Wydane w {props.release_year}</p>
