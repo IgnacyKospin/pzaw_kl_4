@@ -47,6 +47,7 @@ function App(){
   return (
     <div className='superContainer'>
       <Movies ListOfMovies={moviesList}/>
+      <Movies ListOfMovies={moviesList} filterYear={2010} />
       <h1>Książki</h1>
       <Books listOfBooks={booksList}/>
       <h1>Albumy</h1>
