@@ -54,7 +54,7 @@ var albumsList: PropsAlbum[] = [
       {song_name:"Epidermis", song_length: 282}
     ]
   },
-    {
+  {
     album_name:'Kryzys',
     cover_source:"assets/content-source/hanba_kryzys.png",
     author_name:'Hańba!',
@@ -65,6 +65,16 @@ var albumsList: PropsAlbum[] = [
       {song_name:"Czerwone i Czarne", song_length:208},
       {song_name:"Przemsza", song_length: 155},
       {song_name: "Refleksja", song_length: 121}
+    ]
+  },
+  {
+    album_name:'Kryzys Ale Taki Poważny Że Nic Nie Ma',
+    cover_source:"assets/content-source/hanba_kryzys.png",
+    author_name:'Hańba!',
+    genre:'Folk miejski/punk rock',
+    release_year:1928,
+    songs:[
+
     ]
   }
 ];
