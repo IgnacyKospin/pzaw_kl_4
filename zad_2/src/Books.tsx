@@ -36,14 +36,22 @@ function BookEntry(props: PropsBook){
   );
 }
 interface PropsBooks{
-    listOfBooks: PropsBook[]
+    listOfBooks: PropsBook[];
+    /**
+     * czy sortowac po roku wydania
+     */
+    sorted?: boolean;
 }
 export default function Books(props: PropsBooks){
+    const books = props.sorted ? props.listOfBooks.sort((a, b) => (a.release_year < b.release_year ? 1 : b.release_year < a.release_year ? -1 : 0)): props.listOfBooks;
     return (
-        <div className="contentContainer">
-            {props.listOfBooks.map((element) => (
+        <div>
+            <h2>Książki {props.sorted && "posortowane"}</h2>
+            <div className="contentContainer">
+            {books.map((element) => (
                 <BookEntry {...element}/>
             ))}
+            </div>
         </div>
     )
 }

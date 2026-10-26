@@ -25,6 +25,20 @@ var booksList: PropsBook[] = [
     cover_source:"src\assets\content-source\pale_horse_savinkov.png",
     release_year:1909,
     page_amount:199
+  },
+  {
+    name:"1984",
+    author_name:"Jorjor Wel",
+    cover_source:"https://upload.wikimedia.org/wikipedia/commons/5/51/1984_first_edition_cover.jpg",
+    release_year:1949,
+    page_amount:328
+  },
+  {
+    name:"Proces",
+    author_name:"Franz Kafka",
+    cover_source:"https://upload.wikimedia.org/wikipedia/commons/f/f9/TrialKafka.jpg",
+    release_year:1925,
+    page_amount:128
   }
 ]
 var albumsList: PropsAlbum[] = [
@@ -46,10 +60,11 @@ var albumsList: PropsAlbum[] = [
 function App(){
   return (
     <div className='superContainer'>
+      <h1>Filmy</h1>
       <Movies ListOfMovies={moviesList}/>
       <Movies ListOfMovies={moviesList} filterYear={2010} />
       <h1>Książki</h1>
-      <Books listOfBooks={booksList}/>
+      <Books listOfBooks={booksList} sorted={true}/>
       <h1>Albumy</h1>
       <Albums listOfAlbums={albumsList}/>
     </div>
