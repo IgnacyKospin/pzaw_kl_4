@@ -1,3 +1,4 @@
+import { useState } from "react";
 /**
  * Props dla filmu.
  */
@@ -38,6 +39,7 @@ interface PropsMovies{
     filterYear?: number;
 }
 export default function Movies(props: PropsMovies){
+    const [isOpen, setIsOpen] = useState(true);
     var moviesSorted = props.ListOfMovies.sort((a, b) => (a.rating < b.rating ? 1 : b.rating < a.rating ? -1 : 0));
     /**
      * '[kolejne listy] wyświetlającą tylko filmy wydane po 2010 roku' więc uznaję że w poprzedniej liscie trzeba wszystko
@@ -49,12 +51,14 @@ export default function Movies(props: PropsMovies){
     }
     return (
     <div>
-        <h2>Filmy {filtered && `po ${props.filterYear}`}</h2>
+        <h2>Filmy {filtered && `po ${props.filterYear}`} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
+        {isOpen &&
         <div className='contentContainer'>
         {props.ListOfMovies.map((element) => (
             <Movie {...element}/>
         ))}
         </div>
+}
     </div>
     )
 }

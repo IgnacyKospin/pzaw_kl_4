@@ -1,3 +1,4 @@
+import { useState } from "react";
 /**
  * Props dla książek
  */
@@ -44,15 +45,18 @@ interface PropsBooks{
     sorted?: boolean;
 }
 export default function Books(props: PropsBooks){
+    const [isOpen, setIsOpen] = useState(true);
     const books = props.sorted ? props.listOfBooks.sort((a, b) => (a.release_year < b.release_year ? 1 : b.release_year < a.release_year ? -1 : 0)): props.listOfBooks;
     return (
         <div>
-            <h2>Książki {props.sorted && "posortowane"}</h2>
+            <h2>Książki {props.sorted && "posortowane"} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
+            {isOpen &&
             <div className="contentContainer">
             {books.map((element) => (
                 <BookEntry {...element}/>
             ))}
             </div>
+}
         </div>
     )
 }
