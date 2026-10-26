@@ -53,6 +53,19 @@ var albumsList: PropsAlbum[] = [
       {song_name:"Abomination Street", song_length:262},
       {song_name:"Epidermis", song_length: 282}
     ]
+  },
+    {
+    album_name:'Kryzys',
+    cover_source:"src\assets\content-source\hanba_kryzys.png",
+    author_name:'Hańba!',
+    genre:'Folk miejski/punk rock',
+    release_year:2023,
+    songs:[
+      {song_name:"Zagłębie Dąbrowskie", song_length:175}, 
+      {song_name:"Czerwone i Czarne", song_length:208},
+      {song_name:"Przemsza", song_length: 155},
+      {song_name: "Refleksja", song_length: 121}
+    ]
   }
 ];
 
@@ -67,6 +80,7 @@ function App(){
       <Books listOfBooks={booksList} sorted={true}/>
       <h1>Albumy</h1>
       <Albums listOfAlbums={albumsList}/>
+      <Albums listOfAlbums={albumsList} showHowManyAlbumsByMostSongs={1} />
     </div>
 
   );

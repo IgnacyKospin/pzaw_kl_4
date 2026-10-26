@@ -89,7 +89,7 @@ export default function Albums(props: PropsAlbums){
       <div>
         <h2>{props.showHowManyAlbumsByMostSongs && `Top ${props.showHowManyAlbumsByMostSongs} według liczby piosenek`} Albumy</h2>
         <div className="contentContainer">
-            {props.listOfAlbums.map((element) => (
+            {albums.map((element) => (
                 <AlbumEntry {...element} />
             ))}
         </div>
