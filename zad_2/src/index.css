@@ -122,3 +122,6 @@ p {
   width: 100%;
   font-weight: bolder;
 }
+.visibility_toggler{
+  cursor: grab; /*it looks close enough to the clickable cursor so im going with this*/
+}

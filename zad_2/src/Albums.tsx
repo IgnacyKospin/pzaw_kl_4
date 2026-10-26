@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+
 /**
  * Propsy dla indywidualnych piosenek, do użytku w elemencie Album
  */
@@ -83,6 +86,7 @@ interface PropsAlbums{
     showHowManyAlbumsByMostSongs?: number;
 }
 export default function Albums(props: PropsAlbums){
+  const [isOpen, setIsOpen] = useState(true);
   var albums = props.listOfAlbums;
   if(props.showHowManyAlbumsByMostSongs){
     albums = albums.sort((a, b) => (a.songs.length < b.songs.length ? 1 : b.songs.length < a.songs.length ? -1 : 0));
@@ -90,12 +94,14 @@ export default function Albums(props: PropsAlbums){
   }
     return (
       <div>
-        <h2>{props.showHowManyAlbumsByMostSongs && `Top ${props.showHowManyAlbumsByMostSongs} według liczby piosenek`} Albumy</h2>
+        <h2>{props.showHowManyAlbumsByMostSongs && `Top ${props.showHowManyAlbumsByMostSongs} według liczby piosenek`} Albumy <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
+        {isOpen && 
         <div className="contentContainer">
             {albums.map((element) => (
                 <AlbumEntry {...element} />
             ))}
         </div>
+        }
       </div>
     )
 }
