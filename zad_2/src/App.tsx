@@ -22,7 +22,7 @@ var booksList: PropsBook[] = [
   {
     name:"[A] Czwarty Jeździec Apokalipsy",
     author_name:"V. Ropshin (Borys Savinkov)",
-    cover_source:"src\assets\content-source\pale_horse_savinkov.png",
+    cover_source:"/assets/content-source/pale_horse_savinkov.png",
     release_year:1909,
     page_amount:199
   },
@@ -44,7 +44,7 @@ var booksList: PropsBook[] = [
 var albumsList: PropsAlbum[] = [
   {
     album_name:'The Chocolate Wheelchair Album',
-    cover_source:"src\assets\content-source\venetian_snares_chocolate_wheelchair.png",
+    cover_source:"assets/content-source/venetian_snares_chocolate_wheelchair.png",
     author_name:'Venetian Snares',
     genre:'Breakcore/IDM',
     release_year:2003,
@@ -56,7 +56,7 @@ var albumsList: PropsAlbum[] = [
   },
     {
     album_name:'Kryzys',
-    cover_source:"src\assets\content-source\hanba_kryzys.png",
+    cover_source:"assets/content-source/hanba_kryzys.png",
     author_name:'Hańba!',
     genre:'Folk miejski/punk rock',
     release_year:2023,
