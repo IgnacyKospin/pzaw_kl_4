@@ -28,12 +28,12 @@ export interface PropsBook {
 function BookEntry(props: PropsBook){
   return (
     <div className="entryContainer">
-      {props.release_year <= 2000 && <p className="special_label">Klasyk</p>}
       <img src={props.cover_source}></img>
       <h2>{props.name}</h2>
       <h3>Autorstwa {props.author_name}</h3>
       <p>Wydane w {props.release_year}</p>
       <p>{props.page_amount} stron</p>
+            {props.release_year <= 2000 && <p className="special_label">Klasyk</p>}
     </div>
   );
 }
@@ -42,14 +42,14 @@ interface PropsBooks{
     /**
      * czy sortowac po roku wydania
      */
-    sorted?: boolean;
+    sortedByReleaseYear?: boolean;
 }
 export default function Books(props: PropsBooks){
     const [isOpen, setIsOpen] = useState(true);
-    const books = props.sorted ? props.listOfBooks.sort((a, b) => (a.release_year < b.release_year ? 1 : b.release_year < a.release_year ? -1 : 0)): props.listOfBooks;
+    const books = props.sortedByReleaseYear ? [...props.listOfBooks].sort((b,a) => (a.release_year - b.release_year)): [...props.listOfBooks].sort((a,b) =>a.name.localeCompare(b.name));
     return (
         <div>
-            <h2>Książki {props.sorted && "posortowane"} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
+            <h2>Książki {props.sortedByReleaseYear && "posortowane"} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
             {isOpen &&
             <div className="contentContainer">
             {books.map((element) => (

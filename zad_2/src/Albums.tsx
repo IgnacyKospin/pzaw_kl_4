@@ -87,7 +87,7 @@ interface PropsAlbums{
 }
 export default function Albums(props: PropsAlbums){
   const [isOpen, setIsOpen] = useState(true);
-  var albums = props.listOfAlbums;
+  var albums = [...props.listOfAlbums].sort((a,b) => a.album_name.localeCompare(b.album_name));
   if(props.showHowManyAlbumsByMostSongs){
     albums = albums.sort((a, b) => (a.songs.length < b.songs.length ? 1 : b.songs.length < a.songs.length ? -1 : 0));
     albums = albums.slice(0, props.showHowManyAlbumsByMostSongs);

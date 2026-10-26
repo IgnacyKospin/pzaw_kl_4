@@ -20,10 +20,11 @@ export interface PropsMovie {
 function Movie(props: PropsMovie) {
   return (
     <div className="entryContainer">
-      {props.rating >= 9 && <p className="special_label">Polecane</p>}
       <img src={props.cover_source}></img>
       <h2>{props.name}</h2>
       <p>Wydane w {props.release_year}</p>
+      <p>Ocena {props.rating}/10</p>
+            {props.rating >= 9 && <p className="special_label">Polecane</p>}
     </div>
   );
 }
@@ -40,13 +41,13 @@ interface PropsMovies{
 }
 export default function Movies(props: PropsMovies){
     const [isOpen, setIsOpen] = useState(true);
-    var moviesSorted = props.ListOfMovies.sort((a, b) => (a.rating < b.rating ? 1 : b.rating < a.rating ? -1 : 0));
+    var moviesSorted = [...props.ListOfMovies].sort((a, b) => a.name.localeCompare(b.name));
     /**
      * '[kolejne listy] wyświetlającą tylko filmy wydane po 2010 roku' więc uznaję że w poprzedniej liscie trzeba wszystko
      */
     var filtered = false;
     if(props.filterYear !== undefined){
-    moviesSorted = props.ListOfMovies.filter((movie) => movie.release_year > props.filterYear);
+      moviesSorted = props.ListOfMovies.filter((movie) => movie.release_year > props.filterYear);
       filtered = true;
     }
     return (
@@ -54,7 +55,7 @@ export default function Movies(props: PropsMovies){
         <h2>Filmy {filtered && `po ${props.filterYear}`} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
         {isOpen &&
         <div className='contentContainer'>
-        {props.ListOfMovies.map((element) => (
+        {moviesSorted.map((element) => (
             <Movie {...element}/>
         ))}
         </div>
