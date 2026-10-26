@@ -74,14 +74,25 @@ function AlbumEntry(props: PropsAlbum){
 
 interface PropsAlbums{
     listOfAlbums: PropsAlbum[];
+    /**
+     * ile top [x] albumów według piosenek powinno pokazać? brak oznacza brak filtrowania.
+     */
+    showHowManyAlbumsByMostSongs?: number;
 }
 export default function Albums(props: PropsAlbums){
+  var albums = props.listOfAlbums;
+  if(props.showHowManyAlbumsByMostSongs){
+    albums = albums.sort((a, b) => (a.songs.length < b.songs.length ? 1 : b.songs.length < a.songs.length ? -1 : 0));
+    albums = albums.slice(0, props.showHowManyAlbumsByMostSongs);
+  }
     return (
+      <div>
+        <h2>{props.showHowManyAlbumsByMostSongs && `Top ${props.showHowManyAlbumsByMostSongs} według liczby piosenek`} Albumy</h2>
         <div className="contentContainer">
             {props.listOfAlbums.map((element) => (
                 <AlbumEntry {...element} />
             ))}
         </div>
-
+      </div>
     )
 }
