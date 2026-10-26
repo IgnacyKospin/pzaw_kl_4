@@ -57,23 +57,25 @@ export interface PropsAlbum{
 function AlbumEntry(props: PropsAlbum){
 
   return (
-    <div className="entryContainer">
-      <img src={props.cover_source}></img>
-      <h2>{props.album_name}</h2>
-      <h3>Autor(zy): {props.author_name}</h3>
-      <p>Gatunek: {props.genre}</p>
-      <p>Wydane w {props.release_year}</p>
-      <h3>Utwory:</h3>
-      { props.songs.length > 0 ?
-      <ul>
-        {
-        props.songs.map((element) => (
-          <SongEntry {...element} />
-        ))
+    <div className="card">
+      <img className="card-img-top" src={props.cover_source}></img>
+      <h2 className="card-title">{props.album_name}</h2>
+      <div className="card-body">
+        <h3>Autor(zy): {props.author_name}</h3>
+        <p>Gatunek: {props.genre}</p>
+        <p>Wydane w {props.release_year}</p>
+        <h3>Utwory:</h3>
+        { props.songs.length > 0 ?
+        <ul>
+          {
+          props.songs.map((element) => (
+            <SongEntry {...element} />
+          ))
+          }
+        </ul>
+        : <p>Brak utworów.</p>
         }
-      </ul>
-      : <p>Brak utworów.</p>
-      }
+      </div>
     </div>
   );
 }
@@ -93,12 +95,14 @@ export default function Albums(props: PropsAlbums){
     albums = albums.slice(0, props.showHowManyAlbumsByMostSongs);
   }
     return (
-      <div>
+      <div className="container">
         <h2>{props.showHowManyAlbumsByMostSongs && `Top ${props.showHowManyAlbumsByMostSongs} według liczby piosenek`} Albumy <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
         {isOpen && 
-        <div className="contentContainer">
+        <div className="row g-4">
             {albums.map((element) => (
+              <div className="col-12 col-sm-12 col-md-6 col-lg-4">
                 <AlbumEntry {...element} />
+              </div>
             ))}
         </div>
         }

@@ -72,7 +72,7 @@ var albumsList: PropsAlbum[] = [
 
 function App(){
   return (
-    <div className='superContainer'>
+    <div className='container'>
       <h1>Filmy</h1>
       <Movies ListOfMovies={moviesList}/>
       <Movies ListOfMovies={moviesList} filterYear={2010} />

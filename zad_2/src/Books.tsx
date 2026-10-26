@@ -27,13 +27,15 @@ export interface PropsBook {
 }
 function BookEntry(props: PropsBook){
   return (
-    <div className="entryContainer">
-      <img src={props.cover_source}></img>
-      <h2>{props.name}</h2>
+    <div className="card h-100">
+      <img className="card-img-top" src={props.cover_source}></img>
+      <h2 className="card-title">{props.name}</h2>
+      <div className="card-body">
       <h3>Autorstwa {props.author_name}</h3>
       <p>Wydane w {props.release_year}</p>
       <p>{props.page_amount} stron</p>
             {props.release_year <= 2000 && <p className="special_label">Klasyk</p>}
+      </div>
     </div>
   );
 }
@@ -51,10 +53,14 @@ export default function Books(props: PropsBooks){
         <div>
             <h2>Książki {props.sortedByReleaseYear && "posortowane"} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
             {isOpen &&
-            <div className="contentContainer">
-            {books.map((element) => (
-                <BookEntry {...element}/>
-            ))}
+            <div className="container">
+              <div className="row g-3">
+              {books.map((element) => (
+                <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                  <BookEntry {...element}/>
+                </div>
+              ))}
+              </div>
             </div>
 }
         </div>

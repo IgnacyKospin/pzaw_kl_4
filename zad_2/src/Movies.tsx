@@ -19,12 +19,14 @@ export interface PropsMovie {
 }
 function Movie(props: PropsMovie) {
   return (
-    <div className="entryContainer">
-      <img src={props.cover_source}></img>
-      <h2>{props.name}</h2>
+    <div className="card h-100">
+      <img className="card-img-top" src={props.cover_source}></img>
+      <h2 className="cardi-title">{props.name}</h2>
+      <div className="card-body">
       <p>Wydane w {props.release_year}</p>
       <p>Ocena {props.rating}/10</p>
-            {props.rating >= 9 && <p className="special_label">Polecane</p>}
+      {props.rating >= 9 && <p className="special_label">Polecane</p>}
+      </div>
     </div>
   );
 }
@@ -54,10 +56,14 @@ export default function Movies(props: PropsMovies){
     <div>
         <h2>Filmy {filtered && `po ${props.filterYear}`} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
         {isOpen &&
-        <div className='contentContainer'>
-        {moviesSorted.map((element) => (
-            <Movie {...element}/>
-        ))}
+        <div className='container'>
+          <div className="row g-2">
+            {moviesSorted.map((element) => (
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <Movie {...element}/>
+              </div>
+            ))}
+          </div>
         </div>
 }
     </div>
