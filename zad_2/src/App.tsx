@@ -16,6 +16,18 @@ var moviesList: PropsMovie[] = [
     name:"Morbius (better)",
     release_year:2022,
     rating: 10
+  }  ,
+  {
+    cover_source:"https://upload.wikimedia.org/wikipedia/en/9/93/Sharknado_poster.jpg",
+    name:"Sharknado",
+    release_year:2013,
+    rating:7
+  },
+    {
+    cover_source:"https://upload.wikimedia.org/wikipedia/en/d/d6/Lavalantula.jpg",
+    name:"Lavalantula",
+    release_year:2015,
+    rating:8
   }
 ];
 var booksList: PropsBook[] = [

@@ -25,7 +25,7 @@ function Movie(props: PropsMovie) {
       <div className="card-body">
       <p>Wydane w {props.release_year}</p>
       <p>Ocena {props.rating}/10</p>
-      {props.rating >= 9 && <p className="special_label">Polecane</p>}
+      {props.rating >= 8 && <p className="special_label">Polecane</p>}
       </div>
     </div>
   );
