@@ -96,13 +96,13 @@ function App(){
   return (
     <div className='container'>
       <h1>Filmy</h1>
-      <Movies ListOfMovies={moviesList}/>
+      <Movies ListOfMovies={moviesList}isMain={true} />
       <Movies ListOfMovies={moviesList} filterYear={2010} />
       <h1>Książki</h1>
-      <Books listOfBooks={booksList} />
+      <Books listOfBooks={booksList} isMain={true} />
       <Books listOfBooks={booksList} sortedByReleaseYear={true}/>
       <h1>Albumy</h1>
-      <Albums listOfAlbums={albumsList}/>
+      <Albums listOfAlbums={albumsList} isMain={true}/>
       <Albums listOfAlbums={albumsList} showHowManyAlbumsByMostSongs={1} />
     </div>
 

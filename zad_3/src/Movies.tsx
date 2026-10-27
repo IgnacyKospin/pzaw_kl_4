@@ -59,6 +59,10 @@ interface PropsMovies{
      * Waow bardzo modularne
      */
     filterYear?: number;
+        /**
+     * gdyż 'Dla powyższych elementów <input> przypisz odpowiedznie atrybuty id: movie-search, book-search i album-search.', a id ma być unikatowe, implementuje to tak
+     */
+    isMain?: boolean;
 }
 export default function Movies(props: PropsMovies){
     const [isOpen, setIsOpen] = useState(true);
@@ -78,8 +82,8 @@ export default function Movies(props: PropsMovies){
     return (
     <div>
         <h2>Filmy {filtered && `po ${props.filterYear}`} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
-        {isOpen && <input type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInMovies(e, setFilter)}/>}
-        {isOpen && <p>{currentFilter}</p>}
+        {(isOpen && props.isMain == true) && <input id='movie-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInMovies(e, setFilter)}/>}
+        {(isOpen && props.isMain == true) && <p>{currentFilter}</p>}
         {isOpen && (moviesSorted.length > 0 ? 
         <div className='container'>
           <div className="row g-2">

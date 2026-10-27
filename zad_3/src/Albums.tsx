@@ -99,6 +99,10 @@ interface PropsAlbums{
      * ile top [x] albumów według piosenek powinno pokazać? brak oznacza brak filtrowania.
      */
     showHowManyAlbumsByMostSongs?: number;
+        /**
+     * gdyż 'Dla powyższych elementów <input> przypisz odpowiedznie atrybuty id: movie-search, book-search i album-search.', a id ma być unikatowe, implementuje to tak
+     */
+    isMain?: boolean
 }
 export default function Albums(props: PropsAlbums){
   const [isOpen, setIsOpen] = useState(true);
@@ -111,8 +115,8 @@ export default function Albums(props: PropsAlbums){
     return (
       <div className="container">
         <h2>{props.showHowManyAlbumsByMostSongs && `Top ${props.showHowManyAlbumsByMostSongs} według liczby piosenek`} Albumy <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
-        {isOpen && <input type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInAlbums(e, setFilter)}/>}
-        <p>{currentFilter}</p>
+        {(isOpen && props.isMain == true) && <input id='albums-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInAlbums(e, setFilter)}/>}
+        {(isOpen && props.isMain == true) && <p>{currentFilter}</p>}
         {isOpen && 
         <div className="row g-4">
             {albums.map((element) => (

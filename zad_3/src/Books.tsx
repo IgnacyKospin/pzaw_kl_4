@@ -50,6 +50,10 @@ interface PropsBooks{
      * czy sortowac po roku wydania
      */
     sortedByReleaseYear?: boolean;
+    /**
+     * gdyż 'Dla powyższych elementów <input> przypisz odpowiedznie atrybuty id: movie-search, book-search i album-search.', a id ma być unikatowe, implementuje to tak
+     */
+    isMain?: boolean
 }
 export default function Books(props: PropsBooks){
     const [isOpen, setIsOpen] = useState(true);
@@ -58,8 +62,8 @@ export default function Books(props: PropsBooks){
     return (
         <div>
             <h2>Książki {props.sortedByReleaseYear && "posortowane"} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
-            {isOpen && <input type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInBooks(e, setFilter)}/>}
-            {isOpen && <p>{currentFilter}</p>}
+            {(isOpen && props.isMain == true) && <input id='books-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInBooks(e, setFilter)}/>}
+            {(isOpen && props.isMain== true) && <p>{currentFilter}</p>}
             {isOpen &&
             <div className="container">
               <div className="row g-3">
