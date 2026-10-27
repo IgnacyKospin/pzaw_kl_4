@@ -1,4 +1,11 @@
 import { useState } from "react";
+
+
+function handleFilmCardClick(event: React.MouseEvent<HTMLDivElement>){
+  var obj = event.currentTarget;
+  const movie = obj.querySelector(".card-title")?.textContent;
+  console.log(`Wybrano film: ${movie}`);
+}
 /**
  * Props dla filmu.
  */
@@ -19,7 +26,7 @@ export interface PropsMovie {
 }
 function Movie(props: PropsMovie) {
   return (
-    <div className="card h-100">
+    <div className="card h-100" onClick={handleFilmCardClick}>
       <img className="card-img-top" src={props.cover_source}></img>
       <h2 className="card-title">{props.name}</h2>
       <div className="card-body">
