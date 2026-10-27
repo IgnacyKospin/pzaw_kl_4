@@ -90,7 +90,7 @@ export default function Movies(props: PropsMovies){
             ))}
           </div>
         </div>
-        : <p className="alert alert-info">Brak filmów spełniających kondycje wyszukiwania.</p> }
+        : <p className="alert alert-info">Nie znaleziono filmów.</p> }
     </div>
     )
 }
