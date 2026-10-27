@@ -16,7 +16,7 @@ interface PropsSong{
 }
 function SongEntry(props: PropsSong){
   return (
-    <tr><td>{props.song_name}</td><td className="text-end">{props.song_length}</td></tr>
+    <tr key={props.song_name}><td>{props.song_name}</td><td className="text-end">{props.song_length}</td></tr>
   );
 }
 /**
@@ -67,7 +67,7 @@ function AlbumEntry(props: PropsAlbum){
         <h3>Utwory:</h3>
         { props.songs.length > 0 ?
         <table className="table table-striped table-hover">
-          <thead><th>Nazwa piosenki</th><th>Czas trwania (w sekundach)</th></thead>
+          <thead><tr><th>Nazwa piosenki</th><th>Czas trwania (w sekundach)</th></tr></thead>
           <tbody>
           {
           props.songs.map((element) => (

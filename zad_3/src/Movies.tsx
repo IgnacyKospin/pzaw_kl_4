@@ -6,6 +6,12 @@ function handleFilmCardClick(event: React.MouseEvent<HTMLDivElement>){
   const movie = obj.querySelector(".card-title")?.textContent;
   console.log(`Wybrano film: ${movie}`);
 }
+function handleDetailsClick(event: React.MouseEvent<HTMLButtonElement>){
+  event.stopPropagation();
+  var obj = event.currentTarget.parentElement?.parentElement;
+  const movie = obj.querySelector(".card-title")?.textContent;
+  console.log(`Pokaż szczegóły dla ${movie}`);
+}
 /**
  * Props dla filmu.
  */
@@ -31,6 +37,7 @@ function Movie(props: PropsMovie) {
       <h2 className="card-title">{props.name}</h2>
       <div className="card-body">
       <p>Wydane w {props.release_year}</p>
+      <button onClick={handleDetailsClick}>Pokaż szczegóły</button>
       <p>Ocena {props.rating}/10</p>
       {props.rating >= 8 && <p className="special_label">Polecane</p>}
       </div>
