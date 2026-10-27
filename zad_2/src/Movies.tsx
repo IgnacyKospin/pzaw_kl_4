@@ -21,7 +21,7 @@ function Movie(props: PropsMovie) {
   return (
     <div className="card h-100">
       <img className="card-img-top" src={props.cover_source}></img>
-      <h2 className="cardi-title">{props.name}</h2>
+      <h2 className="card-title">{props.name}</h2>
       <div className="card-body">
       <p>Wydane w {props.release_year}</p>
       <p>Ocena {props.rating}/10</p>
