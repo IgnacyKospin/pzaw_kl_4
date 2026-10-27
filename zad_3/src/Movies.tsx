@@ -80,7 +80,7 @@ export default function Movies(props: PropsMovies){
         <h2>Filmy {filtered && `po ${props.filterYear}`} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
         {isOpen && <input type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInMovies(e, setFilter)}/>}
         {isOpen && <p>{currentFilter}</p>}
-        {isOpen && moviesSorted.length > 0 ? 
+        {isOpen && (moviesSorted.length > 0 ? 
         <div className='container'>
           <div className="row g-2">
             {moviesSorted.map((element) => (
@@ -90,7 +90,7 @@ export default function Movies(props: PropsMovies){
             ))}
           </div>
         </div>
-        : <p className="alert alert-info">Nie znaleziono filmów.</p> }
+        : <p className="alert alert-info">Nie znaleziono filmów.</p>)}
     </div>
     )
 }
