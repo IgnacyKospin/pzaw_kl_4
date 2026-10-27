@@ -72,12 +72,15 @@ export default function Movies(props: PropsMovies){
       moviesSorted = props.ListOfMovies.filter((movie) => movie.release_year > props.filterYear);
       filtered = true;
     }
+    if(currentFilter != ''){
+      moviesSorted = props.ListOfMovies.filter((movie) => movie.name.toLowerCase().includes(currentFilter.toLowerCase()));
+    }
     return (
     <div>
         <h2>Filmy {filtered && `po ${props.filterYear}`} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
-                  {isOpen && <input type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInMovies(e, setFilter)}/>}
-                  {isOpen && <p>{currentFilter}</p>}
-        {isOpen &&
+        {isOpen && <input type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInMovies(e, setFilter)}/>}
+        {isOpen && <p>{currentFilter}</p>}
+        {isOpen && moviesSorted.length > 0 ? 
         <div className='container'>
           <div className="row g-2">
             {moviesSorted.map((element) => (
@@ -87,7 +90,7 @@ export default function Movies(props: PropsMovies){
             ))}
           </div>
         </div>
-}
+        : <p className="alert alert-info">Brak filmów spełniających kondycje wyszukiwania.</p> }
     </div>
     )
 }
