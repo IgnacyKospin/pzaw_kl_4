@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 function handleSongClick(title: String, event: React.MouseEvent<HTMLTableRowElement>){
   /**
    * bodajże z czego znalazłem, to różnica polega na tym, iż strzałkowa zachowuje kontekst wywołania? jak w wywołaniu tej (e)
