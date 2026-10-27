@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-
+function handleSongClick(title: String, event: React.MouseEvent<HTMLTableRowElement>){
+  const album_title = event.currentTarget.closest('.card')?.querySelector('.card-title')?.textContent; /**they're calling this the worst finder on this side of the missisisipi */
+  console.log(`Wybrano utwór: ${title} z ${album_title}`);
+}
 /**
  * Propsy dla indywidualnych piosenek, do użytku w elemencie Album
  */
@@ -16,7 +19,7 @@ interface PropsSong{
 }
 function SongEntry(props: PropsSong){
   return (
-    <tr key={props.song_name}><td>{props.song_name}</td><td className="text-end">{props.song_length}</td></tr>
+    <tr onClick={(e) => handleSongClick(props.song_name, e)}><td>{props.song_name}</td><td className="text-end">{props.song_length}</td></tr>
   );
 }
 /**
