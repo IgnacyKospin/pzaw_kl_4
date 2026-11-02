@@ -24,7 +24,7 @@ function Board(props: PropsBoard){
                     return (
                         <tr>
                             {row.map(element => {
-                                return <Tile content={element} onClick={props.Tile_Click_Handler}/>
+                                return <Tile content={element} On_Click_Handler={props.Tile_Click_Handler}/>
                             })
                             }
                         </tr>
