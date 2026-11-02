@@ -110,8 +110,8 @@ code {
   background: var(--code-bg);
 }
 table{
-  width: 50vw;
-  height: 50vw;
+  width: 30vw;
+  height: 30vw;
 }
 td {
   width: 33%;
@@ -120,4 +120,8 @@ td {
 table, td, th{
   border: 1px solid black;
   border-collapse: collapse;
+}
+.main{
+  display: grid;
+  justify-items: center;
 }
