@@ -18,7 +18,6 @@ interface PropsBoard{
 
 function Board(props: PropsBoard){
     return (
-        <>
             <table>
                 <tbody>
                 {props.Board_Table.map((row, row_index) => {
@@ -33,7 +32,6 @@ function Board(props: PropsBoard){
                 })}
                 </tbody>
             </table>
-        </>
     );
 }
 
