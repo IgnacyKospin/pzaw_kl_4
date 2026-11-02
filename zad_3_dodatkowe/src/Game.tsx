@@ -9,6 +9,7 @@ function App() {
   function game_control(){
     setPlayer(actual_player === 'O' ? 'X' : 'O');
     var res = check_win();
+    console.log(res);
     if(res){
       setVictor(res);
       setGameActive(false);
@@ -24,7 +25,7 @@ function App() {
     if(game_active){
       var tile = actual_board[row][column];
       if(tile == ' '){
-        var new_board = actual_board;
+        var new_board = actual_board.map(row => [...row]);
         new_board[row][column] = actual_player;
         setBoard(new_board);
         game_control();
@@ -44,11 +45,11 @@ function App() {
       [actual_board[0][0], actual_board[1][1], actual_board[2][2]],
       [actual_board[2][0], actual_board[1][1], actual_board[0][2]],
     ];
-    victory_conditions.forEach(condition => {
-      if(condition[0] === condition[1] === condition[2]){
+    for(var condition of victory_conditions){
+      if(condition[0] != ' ' && condition[0] == condition[1] && condition[1] == condition[2]){
         return condition[0];
       }
-    })
+    }
     return false;
   }
   return (

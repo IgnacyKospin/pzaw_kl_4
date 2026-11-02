@@ -109,9 +109,15 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+table{
+  width: 50vw;
+  height: 50vw;
+}
+td {
+  width: 33%;
+  height: 33%;
+}
 table, td, th{
   border: 1px solid black;
   border-collapse: collapse;
-  height: 100%;
-  width: 100%;
 }
