@@ -1,17 +1,19 @@
 interface PropsTile{
     content: string;
-    On_Click_Handler: React.MouseEventHandler<HTMLTableCellElement>;
+    row: number;
+    column: number;
+    On_Click_Handler: (row: number, column: number) => void;
 }
 function Tile(props: PropsTile){
     return(
-        <td onClick={props.On_Click_Handler}>{props.content}</td>
+        <td onClick={() => props.On_Click_Handler(props.row, props.column)}>{props.content}</td>
     )
 }
 
 
 interface PropsBoard{
     Board_Table: string[][];
-    Tile_Click_Handler:  React.MouseEventHandler<HTMLTableCellElement>;
+    Tile_Click_Handler:  (row: number, column: number) => void;
 }
 
 function Board(props: PropsBoard){
@@ -19,11 +21,11 @@ function Board(props: PropsBoard){
         <>
             <table>
                 <tbody>
-                {props.Board_Table.map(row => {
+                {props.Board_Table.map((row, row_index) => {
                     return (
-                        <tr>
-                            {row.map(element => {
-                                return <Tile content={element} On_Click_Handler={props.Tile_Click_Handler}/>
+                        <tr key={row_index}>
+                            {row.map((element, col_index) => {
+                                return <Tile key={col_index} row={row_index} column={col_index} content={element} On_Click_Handler={props.Tile_Click_Handler}/>
                             })
                             }
                         </tr>
