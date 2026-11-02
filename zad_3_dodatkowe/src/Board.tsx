@@ -1,5 +1,5 @@
 interface PropsTile{
-    content: String;
+    content: string;
     On_Click_Handler: React.MouseEventHandler<HTMLTableCellElement>;
 }
 function Tile(props: PropsTile){
@@ -9,10 +9,8 @@ function Tile(props: PropsTile){
 }
 
 
-
-
 interface PropsBoard{
-    Board_Table: String[][];
+    Board_Table: string[][];
     Tile_Click_Handler:  React.MouseEventHandler<HTMLTableCellElement>;
 }
 
