@@ -1,9 +1,4 @@
 import { useState } from "react";
-function searchInBooks(event: React.MouseEvent<HTMLInputElement>, superSecretFunction: Function){
-  const target = event.currentTarget.value;
-  superSecretFunction(target); //we do a little trolling
-  console.log(target);
-}
 /**
  * Props dla książek
  */
@@ -58,11 +53,16 @@ interface PropsBooks{
 export default function Books(props: PropsBooks){
     const [isOpen, setIsOpen] = useState(true);
     const [currentFilter, setFilter] = useState('');
+    function searchInBooks(event: React.ChangeEvent<HTMLInputElement>){
+    const target = event.currentTarget.value;
+    setFilter(target);
+    console.log(target);
+  }
     const books = props.sortedByReleaseYear ? [...props.listOfBooks].sort((b,a) => (a.release_year - b.release_year)): [...props.listOfBooks].sort((a,b) =>a.name.localeCompare(b.name));
     return (
         <div>
             <h2>Książki {props.sortedByReleaseYear && "posortowane"} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
-            {(isOpen && props.isMain == true) && <input id='books-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInBooks(e, setFilter)}/>}
+            {(isOpen && props.isMain == true) && <input id='books-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInBooks(e)}/>}
             {(isOpen && props.isMain== true) && <p>{currentFilter}</p>}
             {isOpen &&
             <div className="container">

@@ -6,11 +6,6 @@ function handleSongClick(title: String, event: React.MouseEvent<HTMLTableRowElem
   const album_title = event.currentTarget.closest('.card')?.querySelector('.card-title')?.textContent; /**they're calling this the worst finder on this side of the missisisipi */
   console.log(`Wybrano utwór: ${title} z ${album_title}`);
 }
-function searchInAlbums(event: React.MouseEvent<HTMLInputElement>, superSecretFunction: Function){
-  const target = event.currentTarget.value;
-  superSecretFunction(target); //we do a little trolling
-  console.log(target);
-}
 /**
  * Propsy dla indywidualnych piosenek, do użytku w elemencie Album
  */
@@ -107,7 +102,13 @@ interface PropsAlbums{
 export default function Albums(props: PropsAlbums){
   const [isOpen, setIsOpen] = useState(true);
   const [currentFilter, setFilter] = useState('');
+  function searchInAlbums(event: React.ChangeEvent<HTMLInputElement>){
+    const target = event.currentTarget.value;
+    setFilter(target);
+    console.log(target);
+  }
   var albums = [...props.listOfAlbums].sort((a,b) => a.album_name.localeCompare(b.album_name));
+
   if(props.showHowManyAlbumsByMostSongs){
     albums = albums.sort((a, b) => (a.songs.length < b.songs.length ? 1 : b.songs.length < a.songs.length ? -1 : 0));
     albums = albums.slice(0, props.showHowManyAlbumsByMostSongs);
@@ -115,7 +116,7 @@ export default function Albums(props: PropsAlbums){
     return (
       <div className="container">
         <h2>{props.showHowManyAlbumsByMostSongs && `Top ${props.showHowManyAlbumsByMostSongs} według liczby piosenek`} Albumy <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
-        {(isOpen && props.isMain == true) && <input id='albums-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInAlbums(e, setFilter)}/>}
+        {(isOpen && props.isMain == true) && <input id='albums-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInAlbums(e)}/>}
         {(isOpen && props.isMain == true) && <p>{currentFilter}</p>}
         {isOpen && 
         <div className="row g-4">

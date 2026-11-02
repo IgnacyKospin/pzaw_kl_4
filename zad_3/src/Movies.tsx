@@ -12,11 +12,6 @@ function handleDetailsClick(event: React.MouseEvent<HTMLButtonElement>){
   const movie = obj.querySelector(".card-title")?.textContent;
   console.log(`Pokaż szczegóły dla ${movie}`);
 }
-function searchInMovies(event: React.MouseEvent<HTMLInputElement>, superSecretFunction: Function){
-  const target = event.currentTarget.value;
-  superSecretFunction(target); //we do a little trolling
-  console.log(target);
-}
 /**
  * Props dla filmu.
  */
@@ -68,6 +63,11 @@ export default function Movies(props: PropsMovies){
     const [isOpen, setIsOpen] = useState(true);
       const [currentFilter, setFilter] = useState('');
     var moviesSorted = [...props.ListOfMovies].sort((a, b) => a.name.localeCompare(b.name));
+    function searchInMovies(event: React.ChangeEvent<HTMLInputElement>){
+      const target = event.currentTarget.value;
+      setFilter(target); //we do a little trolling
+      console.log(target);
+    }
     /**
      * '[kolejne listy] wyświetlającą tylko filmy wydane po 2010 roku' więc uznaję że w poprzedniej liscie trzeba wszystko
      */
@@ -82,7 +82,7 @@ export default function Movies(props: PropsMovies){
     return (
     <div>
         <h2>Filmy {filtered && `po ${props.filterYear}`} <span className='visibility_toggler' onClick={() => setIsOpen(!isOpen)}> {isOpen ? '▾' : '▸'} </span></h2>
-        {(isOpen && props.isMain == true) && <input id='movie-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInMovies(e, setFilter)}/>}
+        {(isOpen && props.isMain == true) && <input id='movie-search' type='text' className="form-control" placeholder="Wpisz nazwę szukanej" onChange={(e) => searchInMovies(e)}/>}
         {(isOpen && props.isMain == true) && <p>{currentFilter}</p>}
         {isOpen && (moviesSorted.length > 0 ? 
         <div className='container'>
