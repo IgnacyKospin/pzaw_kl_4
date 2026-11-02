@@ -18,6 +18,7 @@ function Board(props: PropsBoard){
     return (
         <>
             <table>
+                <tbody>
                 {props.Board_Table.map(row => {
                     return (
                         <tr>
@@ -28,6 +29,7 @@ function Board(props: PropsBoard){
                         </tr>
                     )
                 })}
+                </tbody>
             </table>
         </>
     );
