@@ -1,10 +1,10 @@
 import type { ChangeEvent } from 'react';
 import Task, {type TaskProps} from './Task';
-
 interface TasklistProps{
     status_change_handler: (id: number) => void;
     filter_handler: (event: ChangeEvent)=> void;
     sort_handler: (event: ChangeEvent)=>void;
+    add_new_task_handler: (event: React.SubmitEvent)=>void;
     tasks: TaskProps[];
 }
 
@@ -34,6 +34,13 @@ export default function Tasklist(props: TasklistProps){
             <label>
                 <input type='radio' value='by_state' name='filterByStatus' onChange={(e) => props.sort_handler(e)} /> BY State (unfinishe dfirst)
             </label>
+        </div>
+        <div>
+            <form onSubmit={e => {props.add_new_task_handler(e); e.preventDefault()}}>
+                <h1>new task</h1>
+                <input type='name' name='new_task_name'></input>
+                <button >add</button>
+            </form>
         </div>
         <table>
             <tbody>

@@ -29,16 +29,20 @@ function App() {
     console.log("reached");
     setTasks(newTasks);
   }
-  function createTask(new_task_name: string){
-    const new_id = id_counter+1;
-    const new_task : TaskProps= {
-      task_id: new_id,
-      task_name: new_task_name,
-      is_finished: false
+  function createTask(event: SubmitEvent){
+    const form = event.target;
+    const name : string = form.new_task_name.value;
+    if(name !== null && name.trim() !== ''){
+      const new_id = id_counter+1;
+      const new_task : TaskProps= {
+        task_id: new_id,
+        task_name: name,
+        is_finished: false
+      }
+      var newTasks = [...tasks,  new_task];
+      updateIdCounter(id_counter+1);
+      setTasks(newTasks);
     }
-    var newTasks = [...tasks,  new_task];
-    updateIdCounter(id_counter+1);
-    setTasks(newTasks);
   }
   function filterHandler(event: ChangeEvent){
     const new_filter = event.currentTarget.value; //it may give an error in here but it works
@@ -78,7 +82,7 @@ function App() {
   return (
     <>
       <h1>Unfinished tasks: {sumUnfinishedTasks()}</h1>
-      <TaskList tasks={tasks_to_display} status_change_handler={changeTaskStatus} filter_handler={filterHandler} sort_handler={sortHandler}/>
+      <TaskList tasks={tasks_to_display} status_change_handler={changeTaskStatus} filter_handler={filterHandler} sort_handler={sortHandler} add_new_task_handler={createTask}/>
     </>
   )
 }
