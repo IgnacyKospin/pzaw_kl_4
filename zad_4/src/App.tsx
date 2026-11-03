@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import './App.css'
 import TaskList from './Tasklist'
 import { type TaskProps } from './Task'
@@ -18,6 +18,7 @@ const initTaskList: TaskProps[] = [
 function App() {
   const [tasks, setTasks] = useState(initTaskList);
   const [id_counter, updateIdCounter] = useState(Math.max.apply(Math, tasks.map(function(t: TaskProps) {return t.task_id}))); //stores current id
+  const [current_filter, setCurrentFilter] = useState<'all'|'finished'|'unfinished'>('all');
   function changeTaskStatus(id: number){
     var newTasks = [...tasks];
     var changing_task : number = newTasks.findIndex(task => task.task_id === id);
@@ -38,14 +39,29 @@ function App() {
     updateIdCounter(id_counter+1);
     setTasks(newTasks);
   }
+  function filterHandler(event: ChangeEvent){
+    const new_filter = event.currentTarget.value; //it may give an error in here but it works
+    setCurrentFilter(new_filter);
+  }
   function sumUnfinishedTasks(){
     var temp_for_counting = [...tasks];
     return temp_for_counting.filter(task => task.is_finished !== true).length;
   }
+  var tasks_to_display: TaskProps[] = [...tasks];
+  switch(current_filter){
+    case 'all':
+      break;
+    case 'finished':
+      tasks_to_display = tasks_to_display.filter(task => task.is_finished === true);
+      break;
+    case 'unfinished':
+      tasks_to_display = tasks_to_display.filter(task=> task.is_finished === false);
+      break;
+  }
   return (
     <>
       <h1>Unfinished tasks: {sumUnfinishedTasks()}</h1>
-      <TaskList tasks={tasks} status_change_handler={changeTaskStatus}/>
+      <TaskList tasks={tasks_to_display} status_change_handler={changeTaskStatus} filter_handler={filterHandler}/>
     </>
   )
 }
