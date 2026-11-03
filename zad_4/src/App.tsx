@@ -59,6 +59,16 @@ function App() {
     var temp_for_counting = [...tasks];
     return temp_for_counting.filter(task => task.is_finished !== true).length;
   }
+  function deleteTask(event: SubmitEvent){
+    var tasks_to_purge = [...tasks];
+    var new_tasks = [];
+    tasks_to_purge.forEach(task => {
+      if(task.task_name != event.to_delete.value){
+        new_tasks.push(task);
+      }
+    });
+    setTasks(new_tasks);
+  }
   /**filter */
   var tasks_to_display: TaskProps[] = [...tasks];
   switch(current_filter){
