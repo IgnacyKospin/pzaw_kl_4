@@ -19,6 +19,7 @@ function App() {
   const [tasks, setTasks] = useState(initTaskList);
   const [id_counter, updateIdCounter] = useState(Math.max.apply(Math, tasks.map(function(t: TaskProps) {return t.task_id}))); //stores current id
   const [current_filter, setCurrentFilter] = useState<'all'|'finished'|'unfinished'>('all');
+  const [current_sorter, setCurrentSort] = useState<'alphabetically'|'by_state'|'default'>('default');
   function changeTaskStatus(id: number){
     var newTasks = [...tasks];
     var changing_task : number = newTasks.findIndex(task => task.task_id === id);
@@ -43,10 +44,15 @@ function App() {
     const new_filter = event.currentTarget.value; //it may give an error in here but it works
     setCurrentFilter(new_filter);
   }
+  function sortHandler(event: ChangeEvent){
+    const new_sort = event.currentTarget.value;
+    setCurrentSort(new_sort);
+  }
   function sumUnfinishedTasks(){
     var temp_for_counting = [...tasks];
     return temp_for_counting.filter(task => task.is_finished !== true).length;
   }
+  /**filter */
   var tasks_to_display: TaskProps[] = [...tasks];
   switch(current_filter){
     case 'all':
@@ -58,10 +64,21 @@ function App() {
       tasks_to_display = tasks_to_display.filter(task=> task.is_finished === false);
       break;
   }
+  /**sort */
+  switch(current_sorter){
+    case 'alphabetically':
+      tasks_to_display = tasks_to_display.sort((a,b) => a.task_name.localeCompare(b.task_name));
+      break;
+    case 'by_state':
+      tasks_to_display = tasks_to_display.sort((a,b)=> Number(a.is_finished) - Number(b.is_finished));
+      break;
+    case 'default':
+      break;
+  }
   return (
     <>
       <h1>Unfinished tasks: {sumUnfinishedTasks()}</h1>
-      <TaskList tasks={tasks_to_display} status_change_handler={changeTaskStatus} filter_handler={filterHandler}/>
+      <TaskList tasks={tasks_to_display} status_change_handler={changeTaskStatus} filter_handler={filterHandler} sort_handler={sortHandler}/>
     </>
   )
 }
