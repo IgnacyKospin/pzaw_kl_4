@@ -31,18 +31,21 @@ function App() {
   }
   function createTask(event: SubmitEvent){
     const form = event.target;
-    const name : string = form.new_task_name.value;
-    if(name !== null && name.trim() !== ''){
-      const new_id = id_counter+1;
-      const new_task : TaskProps= {
-        task_id: new_id,
-        task_name: name,
-        is_finished: false
-      }
-      var newTasks = [...tasks,  new_task];
-      updateIdCounter(id_counter+1);
-      setTasks(newTasks);
+    if(form !== null){
+        const name : string = form.new_task_name.value;
+        if(name.trim() !== ''){
+          const new_id = id_counter+1;
+          const new_task : TaskProps= {
+            task_id: new_id,
+            task_name: name,
+            is_finished: false
+          }
+          var newTasks = [...tasks,  new_task];
+          updateIdCounter(id_counter+1);
+          setTasks(newTasks);
+        }
     }
+  
   }
   function filterHandler(event: ChangeEvent){
     const new_filter = event.currentTarget.value; //it may give an error in here but it works
