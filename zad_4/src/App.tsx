@@ -4,16 +4,48 @@ import TaskList from './Tasklist'
 import { type TaskProps } from './Task'
 const initTaskList: TaskProps[] = [
   {
+    task_id: 1,
     task_name: "a",
     is_finished: false
+  },
+  {
+    task_id: 2,
+    task_name: "b",
+    is_finished: true
   }
 ]
 
 function App() {
   const [tasks, setTasks] = useState(initTaskList);
+  const [id_counter, updateIdCounter] = useState(Math.max.apply(Math, tasks.map(function(t: TaskProps) {return t.task_id}))); //stores current id
+  function changeTaskStatus(id: number){
+    var newTasks = [...tasks];
+    var changing_task : number = newTasks.findIndex(task => task.task_id === id);
+    if(changing_task != -1){
+      newTasks[changing_task].is_finished = !newTasks[changing_task].is_finished;
+    }
+    console.log("reached");
+    setTasks(newTasks);
+  }
+  function createTask(new_task_name: string){
+    const new_id = id_counter+1;
+    const new_task : TaskProps= {
+      task_id: new_id,
+      task_name: new_task_name,
+      is_finished: false
+    }
+    var newTasks = [...tasks,  new_task];
+    updateIdCounter(id_counter+1);
+    setTasks(newTasks);
+  }
+  function sumUnfinishedTasks(){
+    var temp_for_counting = [...tasks];
+    return temp_for_counting.filter(task => task.is_finished !== true).length;
+  }
   return (
     <>
-      <TaskList tasks={tasks}/>
+      <h1>Unfinished tasks: {sumUnfinishedTasks()}</h1>
+      <TaskList tasks={tasks} status_change_handler={changeTaskStatus}/>
     </>
   )
 }
