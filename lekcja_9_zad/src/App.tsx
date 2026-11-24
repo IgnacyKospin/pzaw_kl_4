@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from 'react'
 import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 enum Races{
   race1 = "Race1", race2 = "Race2", race3 = "Race3", race5 = "Race4"
 };
@@ -81,6 +81,9 @@ function CharacterForm(props: PropsCharacterForm){
         setErrors(res);
         console.log(res);
       }
+      else{
+        SweepForm();
+      }
     }
     else{
       let errs_temp = {};
@@ -141,8 +144,8 @@ function CharacterForm(props: PropsCharacterForm){
       <label htmlFor='publicCharacterCheck'>Is a public character?</label>
       <input type='checkbox' name='publicCharacterCheck' checked={CharacterPublic} onChange={(event) => setCharacterPublic(event.currentTarget.value)}></input>
       <br/>
-      <button type='button' onClick={SweepForm}>Reset</button>
-      <input type='submit'></input>
+      <button type='button' onClick={SweepForm}>Reset</button><br/>
+      <input type='submit' value={"add new character"}></input>
     </form>
   )
 }
@@ -151,19 +154,23 @@ interface PropsCharacterDisplay{
 }
 function CharactersDisplay(props: PropsCharacterDisplay){
   return (
-    <section>
+    <div className='container'>
+      <div className="row g-3">
       {props.characterList.map(char => (
-        <div>
-          <h1>{char.characterName}</h1>
-          <h3>Class: {char.characterClass}</h3>
-          <h3>Race: {char.characterRace}</h3>
-          <p>Level: {char.level}</p>
-          {char.characterDescription && <small>{char.characterDescription}</small>}
-          {char.isPublicCharacter && <p>Public character</p>}
-          {!char.isPublicCharacter && <p>Private Character</p>}
+        <div className='col-12 col-sm-6 col-md-4 col-lg-3"'>
+          <div className='card'>
+            <h1>{char.characterName}</h1>
+            <h3>Class: {char.characterClass}</h3>
+            <h3>Race: {char.characterRace}</h3>
+            <p>Level: {char.level}</p>
+            {char.characterDescription && <small>{char.characterDescription}</small>}
+            {char.isPublicCharacter && <p>Public character</p>}
+            {!char.isPublicCharacter && <p>Private Character</p>}
+          </div>
         </div>
       ))}
-    </section>
+      </div>
+    </div>
   );
 }
 function App() {
