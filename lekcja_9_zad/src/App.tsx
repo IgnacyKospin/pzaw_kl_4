@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from 'react'
 import './App.css'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 enum Races{
   race1 = "Race1", race2 = "Race2", race3 = "Race3", race5 = "Race4"
 };
