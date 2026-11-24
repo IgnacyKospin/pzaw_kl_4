@@ -136,6 +136,7 @@ function CharacterForm(props: PropsCharacterForm){
       <label htmlFor='characterDescriptionInput'>Character description</label>
       <input name='characterDescriptionInput' type='text' value={CharacterDescription} onChange={(event) => setCharacterDescription(event.currentTarget.value)} minLength={0} maxLength={200}></input>
       {Errors.hasOwnProperty('characterDescription') && (<><br/><span style={{color: 'red'}}>{Errors['characterDescription']}</span></>)}
+      <small>{CharacterDescription.length}/200</small>
       <br/>
       <label htmlFor='publicCharacterCheck'>Is a public character?</label>
       <input type='checkbox' name='publicCharacterCheck' checked={CharacterPublic} onChange={(event) => setCharacterPublic(event.currentTarget.value)}></input>
