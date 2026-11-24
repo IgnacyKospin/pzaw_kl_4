@@ -49,17 +49,25 @@ function CharacterForm(props: PropsCharacterForm){
   const [CharacterFormData, setCharacterFormData] = useState<PropsCharacter>();
 
   const [CharacterName, setCharacterName] = useState<string>("");
-  const [CharacterRace, setCharacterRace] = useState<Races>();
-  const [CharacterClass, setCharacterClass] = useState<CharacterClasses>();
+  const [CharacterRace, setCharacterRace] = useState<Races|false>(false);
+  const [CharacterClass, setCharacterClass] = useState<CharacterClasses|false>(false);
   const [CharacterLevel, setCharacterLevel] = useState<number>(0);
   const [CharacterDescription, setCharacterDescription] = useState<string>("");
   const [CharacterPublic, setCharacterPublic] = useState<boolean>(false);
 
   const [Errors, setErrors] = useState<Object>({});
+  function SweepForm(){
+    setCharacterName("");
+    setCharacterRace(false);
+    setCharacterClass(false);
+    setCharacterLevel(0);
+    setCharacterDescription("");
+    setCharacterPublic(false);
+  }
   function HandleNewCharacterSubmission(event: React.SubmitEvent<HTMLFormElement>){
     event.preventDefault();
     setErrors({});
-    if(CharacterClass !== undefined && CharacterRace !== undefined){
+    if(CharacterClass !== false && CharacterRace !== false){
       let res: Boolean|Object = props.AddNewCharacter({
         characterName: CharacterName,
         characterRace: CharacterRace,
@@ -104,8 +112,8 @@ function CharacterForm(props: PropsCharacterForm){
       {Errors.hasOwnProperty('characterName') && (<><br/><span style={{color: 'red'}}>{Errors['characterName']}</span></>)}
       <br/>
       <label htmlFor='characterRaceSelect'>Character race</label>
-      <select name='characterRaceSelect' onChange={(event) => setCharacterRace(event.currentTarget.value)}>
-        <option value={"wrong value"}>Select a race...</option>
+      <select name='characterRaceSelect' value={CharacterRace} onChange={(event) => setCharacterRace(event.currentTarget.value)}>
+        <option value={"false"}>Select a race...</option>
         {
           options_race
         }
@@ -113,8 +121,8 @@ function CharacterForm(props: PropsCharacterForm){
       {Errors.hasOwnProperty('characterRace') && (<><br/><span style={{color: 'red'}}>{Errors['characterRace']}</span></>)}
       <br/>
       <label htmlFor='characterClassSelect'>Character class</label>
-      <select name='characterClassSelect' onChange={(event) => setCharacterClass(event.currentTarget.value)}>
-        <option value={"wrong value"}>Select a class...</option>
+      <select name='characterClassSelect' value={CharacterClass} onChange={(event) => setCharacterClass(event.currentTarget.value)}>
+        <option value={"false"}>Select a class...</option>
         {
           options_class
         }
@@ -132,6 +140,7 @@ function CharacterForm(props: PropsCharacterForm){
       <label htmlFor='publicCharacterCheck'>Is a public character?</label>
       <input type='checkbox' name='publicCharacterCheck' checked={CharacterPublic} onChange={(event) => setCharacterPublic(event.currentTarget.value)}></input>
       <br/>
+      <button type='button' onClick={SweepForm}>Reset</button>
       <input type='submit'></input>
     </form>
   )
