@@ -67,6 +67,8 @@ function CharacterForm(props: PropsCharacterForm){
   function HandleNewCharacterSubmission(event: React.SubmitEvent<HTMLFormElement>){
     event.preventDefault();
     setErrors({});
+    console.log(CharacterClass);
+    console.log(CharacterRace);
     if(CharacterClass !== false && CharacterRace !== false){
       let res: Boolean|Object = props.AddNewCharacter({
         characterName: CharacterName,
@@ -86,11 +88,12 @@ function CharacterForm(props: PropsCharacterForm){
       }
     }
     else{
+      console.log("either is false");
       let errs_temp = {};
-      if(CharacterClass === undefined){
+      if(CharacterClass === false){
         errs_temp = { characterClass: "Set a class before you can submit."};
       }
-      if(CharacterRace === undefined){
+      if(CharacterRace === false){
         errs_temp = {...errs_temp, characterRace: "Set a race before you can submit."};
       }
       setErrors(errs_temp);
