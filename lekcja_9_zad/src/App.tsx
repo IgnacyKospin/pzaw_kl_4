@@ -111,10 +111,24 @@ function CharacterForm(props: PropsCharacterForm){
     </form>
   )
 }
-function Characters(props: PropsCharacter[]){
+interface PropsCharacterDisplay{
+  characterList: PropsCharacter[];
+}
+function CharactersDisplay(props: PropsCharacterDisplay){
   return (
-    <>
-    </>
+    <section>
+      {props.characterList.map(char => (
+        <div>
+          <h1>{char.characterName}</h1>
+          <h3>Class: {char.characterClass}</h3>
+          <h3>Race: {char.characterRace}</h3>
+          <p>Level: {char.level}</p>
+          {char.characterDescription && <small>{char.characterDescription}</small>}
+          {char.isPublicCharacter && <p>Public character</p>}
+          {!char.isPublicCharacter && <p>Private Character</p>}
+        </div>
+      ))}
+    </section>
   );
 }
 function App() {
@@ -149,7 +163,10 @@ function App() {
     }
   }
   return (
-    <CharacterForm AddNewCharacter={HandleNewCharacter}/>
+    <>
+      <CharacterForm AddNewCharacter={HandleNewCharacter}/> 
+      <CharactersDisplay characterList={Characters} />
+    </>
   )
 }
 
