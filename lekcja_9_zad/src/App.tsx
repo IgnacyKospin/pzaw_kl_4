@@ -33,6 +33,7 @@ function CharacterForm(props: PropsCharacterForm){
   const [Errors, setErrors] = useState<Object>({});
   function HandleNewCharacterSubmission(event: React.SubmitEvent<HTMLFormElement>){
     event.preventDefault();
+    setErrors({});
     if(CharacterClass !== undefined && CharacterRace !== undefined){
       let res: Boolean|Object = props.AddNewCharacter({
         characterName: CharacterName,
@@ -42,10 +43,21 @@ function CharacterForm(props: PropsCharacterForm){
         characterDescription: CharacterDescription,
         isPublicCharacter: CharacterPublic
       })
-
-      if(res){
-        console.log("all is right within the world");
+      if(typeof res === 'object'){
+        console.log("all is not right within the world");
+        setErrors(res);
+        console.log(res);
       }
+    }
+    else{
+      let errs_temp = {};
+      if(CharacterClass === undefined){
+        errs_temp = { characterClass: "Set a class before you can submit."};
+      }
+      if(CharacterRace === undefined){
+        errs_temp = {...errs_temp, characterRace: "Set a race before you can submit."};
+      }
+      setErrors(errs_temp);
     }
   }
   let options_race = [];
@@ -57,14 +69,14 @@ function CharacterForm(props: PropsCharacterForm){
   let options_class = [];
   for(let current_class in CharacterClasses){
     options_class.push(
-      <option key={current_class} value={current_class}>{Races[current_class]}</option> //ignore the error here it works okay
+      <option key={current_class} value={current_class}>{CharacterClasses[current_class]}</option> //ignore the error here it works okay
     );
   }
   return (
     <form onSubmit={HandleNewCharacterSubmission}>
       <label htmlFor=''>Character name</label>
       <input type='text' value={CharacterName} onChange={(event) => setCharacterName(event.currentTarget.value)}></input>
-
+      {Errors.hasOwnProperty('characterName') && (<><br/><span style={{color: 'red'}}>{Errors['characterName']}</span></>)}
       <br/>
       <label htmlFor='characterRaceSelect'>Character race</label>
       <select name='characterRaceSelect' onChange={(event) => setCharacterRace(event.currentTarget.value)}>
@@ -73,6 +85,7 @@ function CharacterForm(props: PropsCharacterForm){
           options_race
         }
       </select>
+      {Errors.hasOwnProperty('characterRace') && (<><br/><span style={{color: 'red'}}>{Errors['characterRace']}</span></>)}
       <br/>
       <label htmlFor='characterClassSelect'>Character class</label>
       <select name='characterClassSelect' onChange={(event) => setCharacterClass(event.currentTarget.value)}>
@@ -81,12 +94,15 @@ function CharacterForm(props: PropsCharacterForm){
           options_class
         }
       </select>
+      {Errors.hasOwnProperty('characterClass') && (<><br/><span style={{color: 'red'}}>{Errors['characterClass']}</span></>)}
       <br/>
       <label htmlFor='characterLevelInput'>Character levle</label>
       <input name='characterLevelInput' type='number' value={CharacterLevel} min={1} max={100} step={1} onChange={(event) => setCharacterLevel(event.currentTarget.value)}></input>
+      {Errors.hasOwnProperty('characterLevel') && (<><br/><span style={{color: 'red'}}>{Errors['characterLevel']}</span></>)}
       <br/>
       <label htmlFor='characterDescriptionInput'>Character description</label>
       <input name='characterDescriptionInput' type='text' value={CharacterDescription} onChange={(event) => setCharacterDescription(event.currentTarget.value)} minLength={0} maxLength={200}></input>
+      {Errors.hasOwnProperty('characterDescription') && (<><br/><span style={{color: 'red'}}>{Errors['characterDescription']}</span></>)}
       <br/>
       <label htmlFor='publicCharacterCheck'>Is a public character?</label>
       <input type='checkbox' name='publicCharacterCheck' checked={CharacterPublic} onChange={(event) => setCharacterPublic(event.currentTarget.value)}></input>
@@ -95,9 +111,16 @@ function CharacterForm(props: PropsCharacterForm){
     </form>
   )
 }
+function Characters(props: PropsCharacter[]){
+  return (
+    <>
+    </>
+  );
+}
 function App() {
   const [Characters, setCharacters] = useState<PropsCharacter[]>([]);
   function HandleNewCharacter(new_character: PropsCharacter){
+    console.log("Handling new");
     /**Validation */
     const errs: Partial<Record<keyof PropsCharacter, string>> = {};
     if(!(new_character.characterName.length >= 3 && new_character.characterName.length <= 20)){
@@ -109,7 +132,7 @@ function App() {
     if(!Object.keys(CharacterClasses).includes(new_character.characterClass)){
       errs.characterClass = "Must select a correct class";
     }
-    if(!Number.isInteger(new_character.level) || !(new_character.level >= 1 && new_character.level <= 100)){
+    if(isNaN(Number(new_character.level))|| !(new_character.level >= 1 && new_character.level <= 100)){
       errs.level = "Level must be between 1 and 100, and be an integer.";
     }
     if(!(new_character.characterDescription.length >= 0 && new_character.characterDescription.length <= 200)){
@@ -126,7 +149,7 @@ function App() {
     }
   }
   return (
-    <CharacterForm />
+    <CharacterForm AddNewCharacter={HandleNewCharacter}/>
   )
 }
 
