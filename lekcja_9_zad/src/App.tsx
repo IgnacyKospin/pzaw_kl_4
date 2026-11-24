@@ -17,6 +17,31 @@ interface PropsCharacter{
   characterDescription: string,
   isPublicCharacter: boolean
 }
+/**
+ * runs validation on the provided character. returns ture if passed, returns object with errors if not.
+ */
+function validateCharacter(new_character: PropsCharacter){
+  const errs: Partial<Record<keyof PropsCharacter, string>> = {};
+    if(!(new_character.characterName.length >= 3 && new_character.characterName.length <= 20)){
+      errs.characterName = "Name must be between 3 and 20 characters."
+    }
+    if(!Object.keys(Races).includes(new_character.characterRace)){
+      errs.characterRace = "Must select a correct race";
+    }
+    if(!Object.keys(CharacterClasses).includes(new_character.characterClass)){
+      errs.characterClass = "Must select a correct class";
+    }
+    if(isNaN(Number(new_character.level))|| !(new_character.level >= 1 && new_character.level <= 100)){
+      errs.level = "Level must be between 1 and 100, and be an integer.";
+    }
+    if(!(new_character.characterDescription.length >= 0 && new_character.characterDescription.length <= 200)){
+      errs.characterDescription = "Character length must be not longer than 200 characters."
+    }
+  if(Object.keys(errs).length == 0){
+    return true;
+  }
+  return errs;
+}
 interface PropsCharacterForm{
   AddNewCharacter: (character: PropsCharacter) => object|boolean; //Validates data and adds if succesful. returns error object or a bool
 }
@@ -135,31 +160,14 @@ function App() {
   const [Characters, setCharacters] = useState<PropsCharacter[]>([]);
   function HandleNewCharacter(new_character: PropsCharacter){
     console.log("Handling new");
-    /**Validation */
-    const errs: Partial<Record<keyof PropsCharacter, string>> = {};
-    if(!(new_character.characterName.length >= 3 && new_character.characterName.length <= 20)){
-      errs.characterName = "Name must be between 3 and 20 characters."
-    }
-    if(!Object.keys(Races).includes(new_character.characterRace)){
-      errs.characterRace = "Must select a correct race";
-    }
-    if(!Object.keys(CharacterClasses).includes(new_character.characterClass)){
-      errs.characterClass = "Must select a correct class";
-    }
-    if(isNaN(Number(new_character.level))|| !(new_character.level >= 1 && new_character.level <= 100)){
-      errs.level = "Level must be between 1 and 100, and be an integer.";
-    }
-    if(!(new_character.characterDescription.length >= 0 && new_character.characterDescription.length <= 200)){
-      errs.characterDescription = "Character length must be not longer than 200 characters."
-    }
-
-    if(Object.keys(errs).length == 0){
+    const res = validateCharacter(new_character);
+    if(res === true){
       let chars = [...Characters, new_character];
       setCharacters(chars);
       return true;
     }
     else{
-      return errs;
+      return res;
     }
   }
   return (
